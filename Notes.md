@@ -14,4 +14,6 @@ Binary search carries out the following steps:
 - If the center element is too high, discard the upper half of the list. Else discard the lower half of the list.
 - Repeat the process again in the remaining half till the correct element is found
 
-With binary search, you eliminate half the elements every time. Thus, for any list of *n* elements, binary search takes log<sub>2</sub>*n* steps to run in the worst case, whereas simple search will take *n* steps.
+With binary search, you eliminate half the elements every time. Thus, for any list of *n* elements, binary search takes **log<sub>2</sub>n** steps to run in the worst case, whereas simple search will take *n* steps.
+
+The code for binary search can be found [here](binary_search.py).

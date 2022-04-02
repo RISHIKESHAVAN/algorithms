@@ -72,6 +72,16 @@ When you write a recursive function, you have to tell it when to stop recursing.
 - *recursive case* - when the function calls itself
 - *base case* - when the function doesn’t call itself again; so it doesn’t go into an infinite loop!! 
 
+**TIP:** When you’re writing a recursive function involving an array, the base case is often an empty array or an array with one element. If you’re stuck, try that first.
+
+<details><summary>Why would I need recursion when I can just use loops?</summary>
+<p>
+This is the introduction to Functional Programming. 
+Functional programming languages like Haskell don’t have loops, so you have to use recursion to write functions like this. If you have a good understanding of recursion, functional languages will be easier to learn.
+</p>
+</details>
+
+
 ## Stacks
 
 Stacks are similar to arrays and lists but with a key difference that when you insert an item, it gets added to the top of the list and when you read an item, you only read the topmost item, and it’s taken off the list.
@@ -79,9 +89,34 @@ So, stacks have only 2 operations:
 - *push* - adds a new item to the top
 - *pop* - remove the top most item and read it
 
-Your computer uses a stack internally called the *call stack*. This stack is used to save the call order and the variables for multiple functions. The top most function in the stack is the one that is currently being dealt with. All the other functions in the stack that are under the current function (these functions are basically the parent functions of the current function) are said to be *partially completed*. When you call a function from another function, the calling function is paused in a partially completed state. 
+Your computer uses a stack internally called the *call stack*. This stack is used to save the call order and the variables for multiple functions. The top most function in the stack is the one that is currently being dealt with. All the other functions in the stack that are under the current function (these functions are basically the parent functions of the current function) are said to be *partially completed*. When you call a function from another function, the calling function is paused in a *partially completed state*.
 
 For each child function, the stack also keeps track of the list of unfinished items at that stage. Thus using stack is convenient. But it comes with a cost: saving all that info can take up a lot of memory. Each of those function calls takes up some memory, and when your stack is too tall, that means your computer is saving information for many function calls. At that point, you have two options:
-- You can rewrite your code to use a loop instead.
-- You can use something called *tail recursion* (advanced topic and is supported by only some languages)
+1. You can rewrite your code to use a loop instead.
+2. You can use something called *tail recursion* (advanced topic and is supported by only some languages)
 
+## Quicksort
+
+### Divide and Conquer
+
+D&C algorithms are recursive algorithms. To solve a problem using D&C, there are two steps:
+1. Figure out the *base case*. This should be the simplest possible case.
+2. Divide or decrease your problem until it becomes the base case.
+
+<details><summary>Euclid's Algorithm</summary>
+<p>
+Recall that the Greatest Common Divisor (GCD) of two integers A and B is the largest integer that divides both A and B.
+The Euclidean Algorithm is a technique for quickly finding the GCD of two integers.
+
+The Euclidean Algorithm for finding GCD(A,B) is as follows:
+1. If A = 0 then GCD(A,B)=B, since the GCD(0,B)=B, and we can stop.  
+2. If B = 0 then GCD(A,B)=A, since the GCD(A,0)=A, and we can stop.  
+3. Write A in quotient remainder form (A = B⋅Q + R)
+4. Find GCD(B,R) using the Euclidean Algorithm since GCD(A,B) = GCD(B,R)
+5. Repeat the process till A or B becomes 0 or one is the GCD of other (this will be the base case).
+</p>
+</details>
+
+Check out [Euclid's Algorithm](https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm)!
+
+D&C isn’t a simple algorithm that you can apply to a problem. Instead, it’s a way to think about a problem. 

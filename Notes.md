@@ -116,9 +116,8 @@ Quicksort is much faster than selection sort and is frequently used in real life
 2. Now, what about arrays of length more than 2? Using the concept of D&C, we need to break down these arrays so that we are at the base case. 
    - In order to do that, pick an element from the from the array. This will be called as *pivot*.
    - Now, find the elements smaller than pivot and the elements larger than the pivot. This is called *partitioning*.
-   - Now we have: a sub-array of numbers less than the pivot, the pivot and a sub-array of numbers greater than the pivot. The two sub-arrays aren't sorted. If they were sorted, then you can combine the whole thing like this — left array + pivot + right array — and you get a sorted array.
+   - Now we have: a sub-array of numbers less than the pivot, the pivot and a sub-array of numbers greater than the pivot. The two sub-arrays aren't sorted. If they were sorted, then you can combine the whole thing like this — *left array* + *pivot* + *right array* — and you get a sorted array.
    - Call quicksort on the two sub-arrays recursively in order to sort them.
-
 
 #### Big O Notation
 
@@ -126,12 +125,49 @@ When you write Big O notation like O(n), it really means: *c * n* where *c* is s
 
 You usually ignore that constant, because if two algorithms have different Big O times, the constant doesn’t matter. But sometimes the constant can make a difference. That is especially in the case when 2 algorithms have the same O-notation.
 
-Quicksort is a tricky case. In the worst case, quicksort takes O(n<sup>2</sup>) time. It’s as slow as selection sort! But that’s the worst case. In the average case, quicksort takes O(n * log n) time. There’s another sorting algorithm called *merge sort*, which is O(n * log n). If quicksort is O(n * log n) on average, but merge sort is O(n log n) always, why not use merge sort? Isn’t it faster? 
+Quicksort is a tricky case. In the worst case, quicksort takes O(n<sup>2</sup>) time. It’s as slow as selection sort! But that’s the worst case. In the average case, quicksort takes O(n log n) time. There’s another sorting algorithm called *merge sort*, which is O(n * log n). If quicksort is O(n log n) on average, but merge sort is O(n log n) always, why not use merge sort? Isn’t it faster? 
 
 This is because, quicksort has a smaller constant than merge sort. So if they’re both O(n log n) time, quicksort is faster. And quicksort is faster in practice because it hits the average case way more often than the worst case.
 
-So
+<details><summary><i>Average Case vs. Worst Case</i></summary>
+<p>
+The performance of quicksort heavily depends on the pivot you choose. This is because the pivot you choose would decide the length of the <i>call stack</i>. The <i>worst case</i> scenario is when the call stack if of length O(n) and the <i>best case</i> is when the call stack is of length O(log n) <i>(which is basically half the number of the elements)</i>.
 
+At each level, the algorithm touches all the elements. So, each level takes O(n) time to complete. Using that, the total time taken for:
+<ul>
+  <li>Best case = O(n) * O(log n) = O(n log n)</li>
+  <li>Worst case = O(n) * O(n) = O(n<sup>2</sup>)</li>
+</ul>
+
+Well, guess what? The best case is also the average case. If you always choose a random element in the array as the pivot, quicksort will complete in O(n log n) time on average. Quicksort is one of the fastest sorting algorithms out there, and it’s a very good example of D&C.
+</p>
+</details>
+
+## Hash Tables
+
+Hash tables are based on hash functions. A *hash function* is a function where you put in a string and you get back a number. The following are the requirements of a hash function:
+
+- It needs to be consistent.
+- It should map different words to different numbers.
+- It knows how big your array is and only returns valid indexes.
+
+Hash functions are important. A good hash function will give you very few *collisions*.
+
+Putting a hash function and an array together gives a data structure called a *hash table*. A hash table is the first data structure that has some extra logic behind it. Arrays and lists map straight to memory, but hash tables are smarter. They use a hash function to intelligently figure out where to store elements. Other versions of hash tables are known as hash maps, maps, dictionaries, and associative arrays. And hash tables are fast!
+
+Some use cases of hash tables are as follows:
+
+- For lookup - modeling relationships from one thing to another thing *e.g.* phone book, DNS resolution
+- Preventing duplicate entries *e.g.* voting booth
+- Caching/memorizing data
+
+### Collisions
+
+When two keys are assigned the same output, its called *collision*. Collisions are bad, and you need to work around them. There are many different ways to deal with collisions. The simplest one is this: if multiple keys map to the same slot, start a linked list at that slot. But it is really important that the linked list doesn't get very long!! Is that happens, then its as bad as putting everything in a linked list to begin with!!
+
+Two key points to remember here:
+1. Your hash function is really important. Your hash function mapped all the keys to a single slot. Ideally, your hash function would map keys evenly all over the hash.
+2. If those linked lists get long, it slows down your hash table a lot. But they won’t get long if you use a good hash function!
 
 ## Extras
 

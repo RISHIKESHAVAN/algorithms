@@ -163,11 +163,23 @@ Some use cases of hash tables are as follows:
 
 ### Collisions
 
-When two keys are assigned the same output, its called *collision*. Collisions are bad, and you need to work around them. There are many different ways to deal with collisions. The simplest one is this: if multiple keys map to the same slot, start a linked list at that slot. But it is really important that the linked list doesn't get very long!! Is that happens, then its as bad as putting everything in a linked list to begin with!!
+When two keys are assigned the same output, its called *collision*. Collisions are bad, and you need to work around them. There are many different ways to deal with collisions. The simplest one is this: if multiple keys map to the same slot, start a linked list at that slot. But it is really important that the linked list doesn't get very long!! Is that happens, then its as bad as putting everything in a single linked list to begin with!!
 
 Two key points to remember here:
-1. Your hash function is really important. Your hash function mapped all the keys to a single slot. Ideally, your hash function would map keys evenly all over the hash.
+1. Your hash function is really important. Ideally, your hash function would map keys evenly all over the hash.
 2. If those linked lists get long, it slows down your hash table a lot. But they won’t get long if you use a good hash function!
+
+### Performance
+
+In the average case, hash tables take *O(1)* for everything. O(1) is called *constant time*. It doesn’t mean instant. It means the time taken will stay the same, regardless of how big the hash table is. We have seen constant time once before - in arrays! Getting an item out of an array takes constant time. It doesn’t matter how big your array is; it takes the same amount of time to get an element. In the average case, hash tables are really fast. In the worst case, a hash table takes O(n) — linear time — for everything,
+which is really slow. 
+
+![h-tables-vs-arrays-vs-lists.png](images/h-tables-vs-arrays-vs-lists.png)
+
+Hash tables are as fast as arrays at searching (getting a value at an index). And they’re as fast as linked lists at inserts and deletes. It’s the best of both worlds! But in the worst case, hash tables are slow at all of those. So it’s important that you don’t hit worst-case performance with hash tables. And to do that, you need to avoid collisions. To avoid collisions, you need
+
+- a low load factor
+- a good hash function
 
 ## Extras
 

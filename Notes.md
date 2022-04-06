@@ -85,7 +85,7 @@ This is the introduction to Functional Programming. Functional programming langu
 
 ## Stacks
 
-Stacks are similar to arrays and lists but with a key difference that when you insert an item, it gets added to the top of the list and when you read an item, you only read the topmost item, and it’s taken off the list.
+Stacks are similar to arrays and lists but with a key difference that when you insert an item, it gets added to the top of the list and when you read an item, you only read the topmost item, and it’s taken off the list. It follows *LIFO*.
 So, stacks have only 2 operations:
 - *push* - adds a new item to the top
 - *pop* - remove the top most item and read it
@@ -112,7 +112,7 @@ D&C isn’t a simple algorithm that you can apply to a problem. Instead, it’s 
 
 Quicksort is much faster than selection sort and is frequently used in real life. It uses D&C. Lets look at the working of the algorithm:
 
-1. First we define the base case. What can be the simplest array that a sorting algorithm can handle? Some arrays don't need sorting at all. These are arrays of length 0 and 1. Since these arrays have nothing to sort and can be returned as such. Also, an array with 2 elements is pretty easy to sort too. Check if the first element is smaller than the second element. If not swap them. This will be the **base case**.
+1. First we define the base case. What can be the simplest array that a sorting algorithm can handle? Some arrays don't need sorting at all. These are arrays of length 0 and 1. Since these arrays have nothing to sort and can be returned as such. Also, an array with 2 elements is pretty easy to sort too (check if the first element is smaller than the second element; if not swap them). This will be the **base case**.
 2. Now, what about arrays of length more than 2? Using the concept of D&C, we need to break down these arrays so that we are at the base case. 
    - In order to do that, pick an element from the from the array. This will be called as *pivot*.
    - Now, find the elements smaller than pivot and the elements larger than the pivot. This is called *partitioning*.
@@ -131,7 +131,7 @@ This is because, quicksort has a smaller constant than merge sort. So if they’
 
 <details><summary><i>Average Case vs. Worst Case</i></summary>
 <p>
-The performance of quicksort heavily depends on the pivot you choose. This is because the pivot you choose would decide the length of the <i>call stack</i>. The <i>worst case</i> scenario is when the call stack if of length O(n) and the <i>best case</i> is when the call stack is of length O(log n) <i>(which is basically half the number of the elements)</i>.
+The performance of quicksort heavily depends on the pivot you choose. This is because the pivot you choose would decide the length of the <i>call stack</i>. The <i>worst case</i> scenario is when you choose the first element as the pivot and the call stack if of length O(n). The <i>best case</i> is when you choose the middle element as pivot and the call stack is of length O(log n) <i>(which is basically half the number of the elements)</i>.
 
 At each level, the algorithm touches all the elements. So, each level takes O(n) time to complete. Using that, the total time taken for:
 <ul>
@@ -139,7 +139,7 @@ At each level, the algorithm touches all the elements. So, each level takes O(n)
   <li>Worst case = O(n) * O(n) = O(n<sup>2</sup>)</li>
 </ul>
 
-Well, guess what? The best case is also the average case. If you always choose a random element in the array as the pivot, quicksort will complete in O(n log n) time on average. Quicksort is one of the fastest sorting algorithms out there, and it’s a very good example of D&C.
+Well, guess what? The best case is also the *average case*. If you always choose a random element in the array as the pivot, quicksort will complete in O(n log n) time on average. Quicksort is one of the fastest sorting algorithms out there, and it’s a very good example of D&C.
 </p>
 </details>
 
@@ -178,8 +178,28 @@ which is really slow.
 
 Hash tables are as fast as arrays at searching (getting a value at an index). And they’re as fast as linked lists at inserts and deletes. It’s the best of both worlds! But in the worst case, hash tables are slow at all of those. So it’s important that you don’t hit worst-case performance with hash tables. And to do that, you need to avoid collisions. To avoid collisions, you need
 
-- a low load factor
+- a low [load factor](#extras)
 - a good hash function
+
+## Breadth First Search
+
+Breadth first search is used to solve the *shortest path problem*. Why? Because in a shorted path problem, you prefer a first-degree connection to a second degree connection and a second degree to a third degree. Thus, you shouldn’t search any second-degree connections before you make sure you don’t have a first-degree connection who satisfies the conditions. This is what breadth first search does!
+
+BFS generally works in the following way:
+1. You check your first degree connections to satisfy your conditions. For this you add your first degree connections to a list. Lets say its like this - `[A, B, C, D]`
+2. If the first connection, `A`, does not satisfy the conditions, you remove `A` from the list. At the same time you also add the connections of `A` to the list. These are your *second degree connections*. So, the list becomes - `[B, C, D, A.1, A.2]`. Notice that the second degree connections are only added to the end of the list. 
+3. Next you check `B`. *(This is very important. Only after checking all the first degree connections, you move to the second degree connections.)*
+4. The same process is repeated for `B`and so on. Everytime a particular connection is not the right one, it is removed from the list and *its* connections are added to the end of the list.
+
+Notice that BFS only works if you *search people in the same order in which they are added*. There’s a data structure for this: it’s called a *queue*.
+
+### Queues
+
+A queue works exactly like it does in real life. It follows *FIFO*. Queues are similar to stacks. You can’t access random elements in the queue. Instead, there are two only operations
+- *enqueue* - added to the queue
+- *dequeue* - removed from the queue
+
+If you enqueue two items to the list, the first item you added will be dequeued before the second item. 
 
 ## Extras
 
@@ -200,5 +220,15 @@ The Euclidean Algorithm for finding GCD(A,B) is as follows:
 <details><summary><i>Inductive Proofs</i></summary>
 <p>
 Inductive proofs are one way to prove that your algorithm works. Each inductive proof has two steps: the base case and the inductive case. For example, suppose I want to prove that I can climb to the top of a ladder. In the inductive case, if my legs are on a rung, I can put my legs on the next rung. So if I’m on rung 2, I can climb to rung 3. That’s the inductive case. For the base case, I’ll say that my legs are on rung 1. Therefore, I can climb the entire ladder, going up one rung at a time.
+</p>
+</details>
+
+<details><summary><i>Load Factor</i></summary>
+<p>
+The load factor of a hash table can be defined as: <i>(Number of items in Hash Table) / (Total number of slots)</i>
+
+This is basically the fraction of occupied slots in the array. Having a load factor greater than 1 means you have more items than slots in your array. Once the load factor starts to grow, you need to add more slots to your hash table. This is called <i>resizing</i>. In order to resize, first you create a new array that’s bigger. The rule of thumb is to make an array that is twice the size. Now you need to re-insert all of those items into this new hash table using the hash function. A good rule of thumb is, resize when your load factor is greater than 0.7.
+
+<i>Resizing is expensive, and you don’t want to resize too often. But averaged out, hash tables take O(1) even with resizing.</i>
 </p>
 </details>

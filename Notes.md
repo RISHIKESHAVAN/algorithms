@@ -181,7 +181,7 @@ Hash tables are as fast as arrays at searching (getting a value at an index). An
 - a low [load factor](#extras)
 - a good hash function
 
-## Breadth First Search
+## Breadth First Search [[code](python-files/04_bfs.py)]
 
 Breadth first search is used to solve the *shortest path problem*. Why? Because in a shorted path problem, you prefer a first-degree connection to a second degree connection and a second degree to a third degree. Thus, you shouldn’t search any second-degree connections before you make sure you don’t have a first-degree connection who satisfies the conditions. This is what breadth first search does!
 
@@ -200,6 +200,12 @@ A queue works exactly like it does in real life. It follows *FIFO*. Queues are s
 - *dequeue* - removed from the queue
 
 If you enqueue two items to the list, the first item you added will be dequeued before the second item. 
+
+### Running time
+
+If you search your entire network, you'll follow each edge. So the running time is at least *O(number of edges)*. You also keep a queue of every person to search. Adding one person to the queue takes constant time: *O(1)*. Doing this for every person will take *O(number of people)* total. 
+
+Breadth-first search takes O(number of people + number of edges), and it’s more commonly written as *O(V+E)* (V for number of vertices, E for number of edges).
 
 ## Extras
 

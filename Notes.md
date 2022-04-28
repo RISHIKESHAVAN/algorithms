@@ -53,7 +53,7 @@ Time taken for selection sort to run: *O(n<sup>2</sup>)*. Although selection sor
 
 <details><summary><i>But why is it O(n<sup>2</sup>)? Isn't it supposed to be O(n!)</i></summary>
 <p>
-Yes, the algorihm doesn’t have to check a list of n elements each time. You check n elements, then n – 1, n - 2 ... 2, 1. On average, you check a list that has 1/2 × n elements. The runtime is O(n × 1/2 × n). But constants like 1/2 are ignored in Big O notation, so you just write O(n × n) or O(n<sup>2</sup>).
+Yes, the algortihm doesn’t have to check a list of n elements each time. You check n elements, then n – 1, n - 2 ... 2, 1. On average, you check a list that has 1/2 × n elements. The runtime is O(n × 1/2 × n). But constants like 1/2 are ignored in Big O notation, so you just write O(n × n) or O(n<sup>2</sup>).
 </p>
 </details>
 
@@ -206,6 +206,23 @@ If you enqueue two items to the list, the first item you added will be dequeued 
 If you search your entire network, you'll follow each edge. So the running time is at least *O(number of edges)*. You also keep a queue of every person to search. Adding one person to the queue takes constant time: *O(1)*. Doing this for every person will take *O(number of people)* total. 
 
 Breadth-first search takes O(number of people + number of edges), and it’s more commonly written as *O(V+E)* (V for number of vertices, E for number of edges).
+
+## Djikstra's algorithm
+
+Shortest path is the one with the smallest number of segments. But the shortest path is not necessarily the *fastest* path. In Dijkstra’s algorithm, you assign a number or weight to each segment. Then Dijkstra’s algorithm finds the path with the smallest total weight, which eventually results in the fastest path.
+
+Dijkstra’s algorithm has four steps:
+1. Find the cheapest node. This is the node you can get to in the least amount of time.
+2. Check whether there’s a cheaper path to the neighbors of this node. If so, update their costs.
+3. Repeat until you’ve done this for every node in the graph.
+4. Calculate the final path.
+
+Dijkstra’s algorithm only works with **directed acyclic graphs**, called DAGs for short. Because, if its undirected, then it means that both nodes point to each other. That’s a cycle! 
+
+Djikstra's algorithm **cannot** be used if there are negative-weight edges. Negative-weight edges break the algorithm. If you want to find the shortest path in a graph that has negative-weight edges, you can use an algorithm called the *Bellman-Ford algorithm*.
+
+
+*Note: Do not follow the cycles. They will only add up to more weights.*
 
 ## Extras
 
